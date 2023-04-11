@@ -18,9 +18,11 @@ public class MainTestArrayStorage {
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.uuid));
         System.out.println("Size: " + ARRAY_STORAGE.size());
-
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
-
+        try {
+            System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        } catch (NullPointerException e) {
+            System.out.println("Данного резюме нет в списке");
+        }
         printAll();
         ARRAY_STORAGE.delete(r1.uuid);
         printAll();
