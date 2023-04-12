@@ -5,11 +5,13 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    private int size;
 
     void clear() {
-        Arrays.fill(storage, null);
-
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
+
 
     void save(Resume r) {
         for (int i = 0; i < storage.length; i++) {
@@ -18,63 +20,38 @@ public class ArrayStorage {
                 break;
             }
         }
+        size++;
     }
 
     Resume get(String uuid) {
-        Resume get = null;
-        for (Resume resume : storage) {
-            if (resume.uuid.equals(uuid)) {
-                get = resume;
-                break;
-            }
+        int i = 0;
+        while (!storage[i].uuid.equals(uuid)) {
+            i++;
         }
-        return get;
+        return storage[i];
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 storage[i] = null;
                 break;
             }
         }
+        for (int i = 0; i < size; i++) {
+            if (storage[i] != null) {
+                storage[i - 1] = storage[i];
+                storage[i] = null;
+            }
+        }
+        size--;
     }
 
     Resume[] getAll() {
-        int length = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                length++;
-            }
-        }
-        Resume[] copyStorage = new Resume[length];
-        int indexCopy = 0;
-        int indexStart = 0;
-        while (indexCopy < storage.length) {
-            int indexSum = 0;
-            if (storage[indexCopy] == null) {
-                indexCopy++;
-            } else {
-                while (storage[indexCopy] != null) {
-                    indexSum++;
-                    indexCopy++;
-                }
-                indexCopy -= indexSum;
-                System.arraycopy(storage, indexCopy, copyStorage, indexStart, indexSum);
-                indexStart += indexSum;
-                indexCopy += indexSum;
-            }
-        }
-        return copyStorage;
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
-        int length = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                length++;
-            }
-        }
-        return length;
+        return size;
     }
 }
