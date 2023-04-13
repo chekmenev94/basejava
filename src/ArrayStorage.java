@@ -18,14 +18,12 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        Resume noResume = new Resume();
-        noResume.uuid = "Этого резюме нет";
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
         }
-        return noResume;
+        return null;
     }
 
     void delete(String uuid) {
