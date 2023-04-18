@@ -10,6 +10,16 @@ import java.util.Arrays;
  */
 public class SortedArrayStorage extends AbstractArrayStorage {
 
+    protected void sortedDelete(int i) {
+        int numElements = size - i - 1;
+        System.arraycopy(storage, i + 1, storage, i, numElements);
+    }
+
+    protected void sortedSave(Resume r, int i) {
+        int index = -i - 1;
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        storage[index] = r;
+    }
     @Override
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
