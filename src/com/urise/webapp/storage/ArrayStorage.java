@@ -10,14 +10,13 @@ public class ArrayStorage extends AbstractArrayStorage {
 
 
     @Override
-    protected void sortedDelete(int i) {
-        storage[i] = storage[size - 1];
+    protected void deleteResume(int index) {
+        storage[index] = storage[size - 1];
     }
 
     @Override
-    protected void sortedSave(Resume r, int i) {
-        int index = i + size + 1;
-        storage[index] = r;
+    protected void saveResume(Resume r, int i) {
+        storage[size] = r;
     }
 
     @Override
