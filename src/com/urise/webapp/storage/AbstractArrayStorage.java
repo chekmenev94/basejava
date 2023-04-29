@@ -28,7 +28,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(r.getUuid());
         if (index == storage.length) {
             throw new StorageException("Хранилище заполнено", r.getUuid());
-        } else if (index > 0) {
+        } else if (index >= 0) {
             throw new ExistStorageException(r.getUuid());
         } else {
             saveResume(r, index);
