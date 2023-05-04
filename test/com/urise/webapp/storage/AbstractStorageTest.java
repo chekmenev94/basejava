@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
 
     private final Storage storage;
 
@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorageTest {
     public static final String UUID_NOT_EXIST = "dummy";
     private static final Resume r4 = new Resume(UUID_NOT_EXIST);
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -126,5 +126,4 @@ public abstract class AbstractArrayStorageTest {
         Resume expected = storage.get(resume.getUuid());
         assertEquals(expected, resume);
     }
-
 }
