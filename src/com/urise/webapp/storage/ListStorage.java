@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> storageList = new ArrayList<>();
+    private final List<Resume> storageList = new ArrayList<>();
 
     @Override
     protected Integer getSearchKey(String uuid) {
@@ -22,7 +22,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isFound(Object searchKey) {
+    protected boolean isExist(Object searchKey) {
         return (Integer) searchKey >= 0;
     }
 

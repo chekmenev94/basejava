@@ -1,67 +1,63 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.StorageException;
+
 import com.urise.webapp.model.Resume;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    private Map<String, Resume> mapStorage = new HashMap<>();
+    private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected String getSearchKey(String uuid) {
-        for (Map.Entry<String, Resume> search : mapStorage.entrySet()) {
+        for (Map.Entry<String, Resume> search : storage.entrySet()) {
             String uuidSearch = search.getValue().getUuid();
             if (uuidSearch.equals(uuid)) {
-                return search.getKey();
+                return uuid;
             }
         }
         return null;
     }
 
     @Override
-    protected boolean isFound(Object searchKey) {
-        return searchKey != null;
+    protected boolean isExist(Object searchKey) {
+        return storage.containsKey(searchKey);
     }
 
     @Override
     protected void doUpdate(Object searchKey, Resume r) {
-        mapStorage.replace((String) searchKey, r);
+        storage.replace((String) searchKey, r);
     }
 
     @Override
     protected void doSave(Object searchKey, Resume r) {
-        if (mapStorage.size() == 10000) {
-            throw new StorageException("Storage overflow", r.getUuid());
-        } else {
-            mapStorage.put(r.getUuid(), r);
-        }
+        storage.put(r.getUuid(), r);
     }
 
     @Override
     protected void doDelete(Object searchKey, String uuid) {
-        mapStorage.remove((String) searchKey);
+        storage.remove((String) searchKey);
     }
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return mapStorage.get((String) searchKey);
+        return storage.get((String) searchKey);
     }
 
     @Override
     public void clear() {
-        mapStorage.clear();
+        storage.clear();
     }
 
 
     @Override
     public Resume[] getAll() {
-        return mapStorage.values().toArray(new Resume[mapStorage.size()]);
+        return storage.values().toArray(new Resume[0]);
     }
 
     @Override
     public int size() {
-        return mapStorage.size();
+        return storage.size();
     }
 }
