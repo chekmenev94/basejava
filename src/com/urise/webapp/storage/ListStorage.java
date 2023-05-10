@@ -11,6 +11,11 @@ public class ListStorage extends AbstractStorage {
     private final List<Resume> storageList = new ArrayList<>();
 
     @Override
+    protected List<Resume> doGetAll() {
+        return new ArrayList<>(storageList);
+    }
+
+    @Override
     protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < storageList.size(); i++) {
             if (storageList.get(i).getUuid().equals(uuid)) {
@@ -52,15 +57,6 @@ public class ListStorage extends AbstractStorage {
 
     public void clear() {
         storageList.clear();
-    }
-
-    public Resume[] getAll() {
-        Resume[] resumes = new Resume[storageList.size()];
-
-        for (int i = 0; i < storageList.size(); i++) {
-            resumes[i] = storageList.get(i);
-        }
-        return resumes;
     }
 
     @Override
