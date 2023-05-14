@@ -9,10 +9,10 @@ import java.util.List;
 
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
-    protected static final int STORAGE_LIMITED = 10000;
-    protected final Resume[] storage = new Resume[STORAGE_LIMITED];
-    protected int size;
+    protected static final int STORAGE_LIMIT = 10000;
 
+    protected final Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected int size;
 
     @Override
     protected List<Resume> doGetAll() {
@@ -31,7 +31,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Object searchKey, Resume r) {
-        if (size == STORAGE_LIMITED) {
+        if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
             saveResume(r, (Integer) searchKey);
