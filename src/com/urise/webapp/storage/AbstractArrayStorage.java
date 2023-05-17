@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -20,35 +20,35 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (Integer) searchKey >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey >= 0;
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume r) {
-        storage[(Integer) searchKey] = r;
+    protected void doUpdate(Integer searchKey, Resume r) {
+        storage[searchKey] = r;
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume r) {
+    protected void doSave(Integer searchKey, Resume r) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
-            saveResume(r, (Integer) searchKey);
+            saveResume(r, searchKey);
             size++;
         }
     }
 
     @Override
-    protected void doDelete(Object searchKey, String uuid) {
-        deleteResume((Integer) searchKey);
+    protected void doDelete(Integer searchKey, String uuid) {
+        deleteResume(searchKey);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage[(Integer) searchKey];
+    protected Resume doGet(Integer searchKey) {
+        return storage[searchKey];
     }
 
     public int size() {

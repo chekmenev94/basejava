@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
     private final List<Resume> storageList = new ArrayList<>();
 
     @Override
@@ -27,17 +27,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (Integer) searchKey >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey >= 0;
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume r) {
-        storageList.set((Integer) searchKey, r);
+    protected void doUpdate(Integer searchKey, Resume r) {
+        storageList.set(searchKey, r);
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume r) {
+    protected void doSave(Integer searchKey, Resume r) {
         if (storageList.size() == 10000) {
             throw new StorageException("List overflow", r.getUuid() );
         } else {
@@ -46,13 +46,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doDelete(Object searchKey, String uuid) {
-        storageList.remove(((Integer) searchKey).intValue());
+    protected void doDelete(Integer searchKey, String uuid) {
+        storageList.remove((searchKey).intValue());
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storageList.get((Integer) searchKey);
+    protected Resume doGet(Integer searchKey) {
+        return storageList.get(searchKey);
     }
 
     public void clear() {
