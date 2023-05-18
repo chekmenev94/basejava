@@ -13,7 +13,7 @@ public class Resume {
     private final String fullName;
 
     private final Map<Information, String> contactInformation = new EnumMap<>(Information.class);
-    private final Map<AllNameItem, AbstractItem> typeItem = new EnumMap<>(AllNameItem.class);
+    private final Map<AllNameItem, AbstractSection> typeItem = new EnumMap<>(AllNameItem.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -30,7 +30,7 @@ public class Resume {
         contactInformation.put(info, str);
     }
 
-    public void setTypeItem(AllNameItem type, AbstractItem instance) {
+    public void setTypeItem(AllNameItem type, AbstractSection instance) {
         typeItem.put(type, instance);
     }
 
@@ -45,7 +45,7 @@ public class Resume {
     public String getContactInformation(Information info) {
         return contactInformation.get(info);
     }
-    public AbstractItem getTypeItem(AllNameItem info) {
+    public AbstractSection getTypeItem(AllNameItem info) {
         return typeItem.get(info);
     }
 

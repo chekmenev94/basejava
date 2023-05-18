@@ -1,9 +1,9 @@
 package com.urise.webapp.model;
 
-public class StringItem extends AbstractItem {
+public class TextSection extends AbstractSection {
     private final String information;
 
-    public StringItem(String information) {
+    public TextSection(String information) {
         this.information = information;
     }
 

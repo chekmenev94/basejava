@@ -2,10 +2,10 @@ package com.urise.webapp.model;
 
 import java.util.List;
 
-public class ListItem extends AbstractItem {
+public class ListSection extends AbstractSection {
     private final List<String> list;
 
-    public ListItem(List<String> list) {
+    public ListSection(List<String> list) {
         this.list = list;
     }
 
