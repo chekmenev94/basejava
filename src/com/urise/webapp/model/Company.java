@@ -1,24 +1,22 @@
 package com.urise.webapp.model;
 
-import java.time.Period;
+
 import java.util.List;
 import java.util.Objects;
 
 public class Company {
-    private final String title;
+    private final String name;
     private final String website;
     private final List<Period> period;
-    private final String description;
 
-    public Company(String name, String web, List<Period> period, String description) {
-        this.title = name;
-        this.website = web;
+    public Company(String name, String website, List<Period> period) {
+        this.name = name;
+        this.website = website;
         this.period = period;
-        this.description = description;
     }
 
     public String getName() {
-        return title;
+        return name;
     }
 
     public String getWebsite() {
@@ -29,10 +27,6 @@ public class Company {
         return period;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,28 +34,25 @@ public class Company {
 
         Company company = (Company) o;
 
-        if (!Objects.equals(title, company.title)) return false;
+        if (!Objects.equals(name, company.name)) return false;
         if (!Objects.equals(website, company.website)) return false;
-        if (!Objects.equals(period, company.period)) return false;
-        return Objects.equals(description, company.description);
+        return Objects.equals(period, company.period);
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (website != null ? website.hashCode() : 0);
         result = 31 * result + (period != null ? period.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Company{" +
-                "title='" + title + '\'' +
+                "name='" + name + '\'' +
                 ", website='" + website + '\'' +
                 ", period=" + period +
-                ", description='" + description + '\'' +
                 '}';
     }
 }
