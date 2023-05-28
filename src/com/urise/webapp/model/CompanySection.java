@@ -1,11 +1,15 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
     private final List<Company> companies;
 
+    public CompanySection(Company... args) {
+        this(Arrays.asList(args));
+    }
 
     public CompanySection(List<Company> list) {
         this.companies = list;

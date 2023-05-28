@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 
-
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
+
     private final File directory;
+
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
@@ -24,9 +25,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         this.directory = directory;
 
     }
+
     @Override
     protected List<Resume> doGetAll() {
         File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory error", null);
+        }
         List<Resume> list = new ArrayList<>(Objects.requireNonNull(files).length);
         for (File file : files) {
             list.add(doGet(file));
@@ -80,7 +85,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
 
-
     @Override
     public void clear() {
         File[] files = directory.listFiles();
@@ -94,10 +98,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         File[] files = directory.listFiles();
-        return files != null ? files.length : 0;
+        if (files == null) {
+            throw new StorageException("Directory error", null);
+        }
+        return files.length;
     }
 
-
     protected abstract Resume doRead(File file) throws IOException;
+
     protected abstract void doWrite(Resume r, File file) throws IOException;
 }

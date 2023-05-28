@@ -1,13 +1,24 @@
 package com.urise.webapp.model;
 
+import com.urise.webapp.util.DateUtil;
+
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Objects;
+
+import static com.urise.webapp.util.DateUtil.*;
 
 public class Period {
     private final String title;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String description;
+
+
+
+    public Period(String title, int startYear, Month startMonth, int endYear, Month endtMonth, String description) {
+        this(title, of(startYear, startMonth), of(endYear, endtMonth), description);
+    }
 
     public Period(String title, LocalDate startDate, LocalDate endDate, String description) {
         this.title = title;
