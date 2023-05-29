@@ -92,6 +92,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             for (File file : files) {
                 doDelete(file, file.getName());
             }
+        } else {
+            throw new StorageException("Directory error", null);
         }
     }
 
