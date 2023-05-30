@@ -1,14 +1,19 @@
 package com.urise.webapp.model;
 
-import com.urise.webapp.util.DateUtil;
 
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
 
 import static com.urise.webapp.util.DateUtil.*;
 
-public class Period {
+public class Period implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String title;
     private final LocalDate startDate;
     private final LocalDate endDate;
