@@ -32,7 +32,7 @@ public class MapStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected void doDelete(String searchKey, String uuid) {
+    protected void doDelete(String searchKey) {
         storage.remove(searchKey);
     }
 

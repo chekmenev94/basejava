@@ -31,7 +31,7 @@ public abstract class AbstractStorage<T> implements Storage {
     public final void delete(String uuid) {
         LOGGER.info("Delete " + uuid);
         T searchKey = getExistedKey(uuid);
-        doDelete(searchKey, uuid);
+        doDelete(searchKey);
     }
 
     public final Resume get(String uuid) {
@@ -73,6 +73,6 @@ public abstract class AbstractStorage<T> implements Storage {
     protected abstract boolean isExist(T searchKey);
     protected abstract void doUpdate(T searchKey, Resume r);
     protected abstract void doSave(T searchKey, Resume r);
-    protected abstract void doDelete(T searchKey, String uuid);
+    protected abstract void doDelete(T searchKey);
     protected abstract Resume doGet(T searchKey);
 }
