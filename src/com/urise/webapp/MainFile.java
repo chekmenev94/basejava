@@ -3,6 +3,7 @@ package com.urise.webapp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class MainFile {
     public static void main(String[] args) {
@@ -31,19 +32,20 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        getPrintFile(dir);
+        getPrintFile(dir, "");
 
 
 
     }
-    public static void getPrintFile(File dir) {
-        if (dir.exists()) {
-            for (File file : dir.listFiles()) {
+    public static void getPrintFile(File dir, String indent) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.println("Directory : " + file.getName());
-                    getPrintFile(file);
+                    System.out.println(indent + "Directory: " + file.getName());
+                    getPrintFile(file, indent + "   ");
                 } else {
-                    System.out.println("- File : " +  file.getName());
+                    System.out.println(indent + "File: " + file.getName());
                 }
             }
         }

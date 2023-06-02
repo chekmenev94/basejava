@@ -9,6 +9,8 @@ import org.junit.Test;
 
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
@@ -38,8 +40,6 @@ public abstract class AbstractStorageTest {
         ResumeTestData.resumeCompletion(r2);
         ResumeTestData.resumeCompletion(r3);
     }
-
-
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -77,7 +77,6 @@ public abstract class AbstractStorageTest {
     public void saveExist() {
         storage.save(r1);
     }
-
 
     @Test
     public void update() {
