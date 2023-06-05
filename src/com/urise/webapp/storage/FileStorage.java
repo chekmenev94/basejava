@@ -5,9 +5,12 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.strategy.StreamStrategy;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 
 public class FileStorage extends AbstractStorage<File> {
@@ -29,12 +32,8 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory error", null);
-        }
-        List<Resume> list = new ArrayList<>(Objects.requireNonNull(files).length);
-        for (File file : files) {
+        List<Resume> list = new ArrayList<>(Objects.requireNonNull(getFiles()).length);
+        for (File file : getFiles()) {
             list.add(doGet(file));
         }
         return list;
@@ -63,10 +62,10 @@ public class FileStorage extends AbstractStorage<File> {
     protected void doSave(File file, Resume r) {
         try {
             file.createNewFile();
-            strategy.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File save error", file.getName(), e);
         }
+        doUpdate(file, r);
     }
 
     @Override
@@ -87,22 +86,21 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
-        } else {
-            throw new StorageException("Directory error", null);
+        for (File file : getFiles()) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
+        return getFiles().length;
+    }
+
+    private File[] getFiles() {
         File[] files = directory.listFiles();
         if (files == null) {
             throw new StorageException("Directory error", null);
         }
-        return files.length;
+        return files;
     }
 }
