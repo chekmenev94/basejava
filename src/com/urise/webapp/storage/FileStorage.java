@@ -29,7 +29,7 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAll() {
-        List<Resume> list = new ArrayList<>(Objects.requireNonNull(getFiles()).length);
+        List<Resume> list = new ArrayList<>(getFiles().length);
         for (File file : getFiles()) {
             list.add(doGet(file));
         }
