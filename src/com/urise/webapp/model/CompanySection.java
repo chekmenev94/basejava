@@ -9,7 +9,10 @@ public class CompanySection extends AbstractSection {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final List<Company> companies;
+    private List<Company> companies;
+
+    public CompanySection() {
+    }
 
     public CompanySection(Company... args) {
         this(Arrays.asList(args));
@@ -17,6 +20,10 @@ public class CompanySection extends AbstractSection {
 
     public CompanySection(List<Company> list) {
         this.companies = list;
+    }
+
+    public List<Company> getCompanies() {
+        return companies;
     }
 
     public void setInformationItem(Company instance) {

@@ -1,12 +1,16 @@
 package com.urise.webapp.model;
 
 import java.io.Serial;
+import java.util.Objects;
 
 public class TextSection extends AbstractSection {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final String information;
+    private String information;
+
+    public TextSection() {
+    }
 
     public TextSection(String information) {
         this.information = information;
@@ -17,13 +21,18 @@ public class TextSection extends AbstractSection {
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TextSection that = (TextSection) o;
+
+        return Objects.equals(information, that.information);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public int hashCode() {
+        return information != null ? information.hashCode() : 0;
     }
 
     @Override

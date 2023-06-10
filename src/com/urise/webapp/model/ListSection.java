@@ -3,12 +3,16 @@ package com.urise.webapp.model;
 import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ListSection extends AbstractSection {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final List<String> list;
+    private List<String> list;
+
+    public ListSection() {
+    }
 
     public ListSection(String... args) {
         this(Arrays.asList(args));
@@ -23,13 +27,18 @@ public class ListSection extends AbstractSection {
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ListSection that = (ListSection) o;
+
+        return Objects.equals(list, that.list);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public int hashCode() {
+        return list != null ? list.hashCode() : 0;
     }
 
     @Override

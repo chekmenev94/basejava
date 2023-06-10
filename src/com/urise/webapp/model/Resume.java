@@ -1,5 +1,8 @@
 package com.urise.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.EnumMap;
@@ -10,15 +13,20 @@ import java.util.UUID;
 /**
  * Initial resume class
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final String uuid;
-    private final String fullName;
+    private String uuid;
+    private String fullName;
 
-    private final Map<ContactType, String> contactInformation = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, AbstractSection> typeSection = new EnumMap<>(SectionType.class);
+    private final Map<ContactType, String> contact = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> section = new EnumMap<>(SectionType.class);
+
+    public Resume() {
+    }
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -31,12 +39,12 @@ public class Resume implements Serializable {
         this.fullName = fullName;
     }
 
-    public void setContact(ContactType info, String str) {
-        contactInformation.put(info, str);
+    public void addContact(ContactType info, String str) {
+        contact.put(info, str);
     }
 
-    public void setSection(SectionType type, AbstractSection instance) {
-        typeSection.put(type, instance);
+    public void addSection(SectionType type, AbstractSection instance) {
+        section.put(type, instance);
     }
 
     public String getUuid() {
@@ -48,28 +56,33 @@ public class Resume implements Serializable {
     }
 
     public String getContact(ContactType info) {
-        return contactInformation.get(info);
+        return contact.get(info);
     }
+
     public AbstractSection getSection(SectionType info) {
-        return typeSection.get(info);
+        return section.get(info);
+    }
+
+    public Map<ContactType, String> getContact() {
+        return contact;
+    }
+
+    public Map<SectionType, AbstractSection> getSection() {
+        return section;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        return Objects.equals(uuid, resume.uuid) && Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contact, resume.contact) && Objects.equals(section, resume.section);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        return result;
+        return Objects.hash(uuid, fullName, contact, section);
     }
 
     @Override

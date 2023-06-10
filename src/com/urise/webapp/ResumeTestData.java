@@ -2,11 +2,7 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.*;
 
-import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ResumeTestData {
     public static void main(String[] args) {
@@ -64,25 +60,25 @@ public class ResumeTestData {
     }
 
     public static void resumeCompletion(Resume r) {
-        r.setContact(ContactType.NUMBER, "11111");
-        r.setContact(ContactType.SKYPE, "skype.skype");
-        r.setContact(ContactType.EMAIL, r.getUuid() + "@yandex.ru");
-        r.setContact(ContactType.PROFILE, r.getUuid() + "LinkedId");
-        r.setContact(ContactType.PROFILE2, r.getUuid() + "GitHub");
-        r.setContact(ContactType.HOMEPAGE, r.getFullName());
+        r.addContact(ContactType.NUMBER, "11111");
+        r.addContact(ContactType.SKYPE, "skype.skype");
+        r.addContact(ContactType.EMAIL, r.getUuid() + "@yandex.ru");
+        r.addContact(ContactType.PROFILE, r.getUuid() + "LinkedId");
+        r.addContact(ContactType.PROFILE2, r.getUuid() + "GitHub");
+        r.addContact(ContactType.HOMEPAGE, r.getFullName());
 
-        r.setSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
-        r.setSection(SectionType.PERSONAL, new TextSection("Personal1"));
-        r.setSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
-        r.setSection(SectionType.QUALIFICATIONS, new ListSection("Qualifications1", "Qualifications2"));
-        r.setSection(SectionType.EXPERIENCE, new CompanySection(new Company("Company1",
+        r.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
+        r.addSection(SectionType.PERSONAL, new TextSection("Personal1"));
+        r.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
+        r.addSection(SectionType.QUALIFICATIONS, new ListSection("Qualifications1", "Qualifications2"));
+        r.addSection(SectionType.EXPERIENCE, new CompanySection(new Company("Company1",
                 "https://company1.ru", new Period("Period1", 2000, Month.OCTOBER, 2002,
                 Month.APRIL, "Java programming1")), new Company("Company2",
                 "https://company2.ru", new Period("Period2", 2002, Month.APRIL, 20023,
                 Month.MARCH, "Java programming2"))));
-        r.setSection(SectionType.EDUCATION, new CompanySection(new Company("Education",
+        r.addSection(SectionType.EDUCATION, new CompanySection(new Company("Education",
                 "https://education.ru", new Period("Period11", 1995, Month.SEPTEMBER, 2000,
-                Month.MARCH, null))));
+                Month.MARCH, "null"))));
 
     }
 }

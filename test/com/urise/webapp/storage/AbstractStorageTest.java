@@ -3,20 +3,16 @@ package com.urise.webapp.storage;
 import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.*;
+import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 
 public abstract class AbstractStorageTest {
 
@@ -28,9 +24,9 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
 
-    private static final Resume r1 = new Resume(UUID_1, "Oleg");
-    private static final Resume r2 = new Resume(UUID_2, "Dasha");
-    private static final Resume r3 = new Resume(UUID_3, "Dima");
+    private static final Resume r1 = new Resume(UUID_1, "Name1");
+    private static final Resume r2 = new Resume(UUID_2, "Name2");
+    private static final Resume r3 = new Resume(UUID_3, "Name3");
 
     public static final String UUID_NOT_EXIST = "dummy";
     private static final Resume r4 = new Resume(UUID_NOT_EXIST, "Dummy");
@@ -46,7 +42,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         storage.clear();
         storage.save(r1);
         storage.save(r2);
@@ -118,7 +114,6 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllSorted() {
         List<Resume> actual = Arrays.asList(r1, r2, r3);
-        actual.sort(AbstractStorage.RESUME_COMPARATOR);
         assertArrayEquals(actual.toArray(), storage.getAllSorted().toArray());
     }
 
@@ -127,7 +122,6 @@ public abstract class AbstractStorageTest {
     }
 
     private void assertGet(Resume resume) {
-        Resume expected = storage.get(resume.getUuid());
-        assertEquals(expected, resume);
+        assertEquals(resume, storage.get(resume.getUuid()));
     }
 }
