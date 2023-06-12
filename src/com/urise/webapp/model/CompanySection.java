@@ -1,10 +1,12 @@
 package com.urise.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CompanySection extends AbstractSection {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -24,10 +26,6 @@ public class CompanySection extends AbstractSection {
 
     public List<Company> getCompanies() {
         return companies;
-    }
-
-    public void setInformationItem(Company instance) {
-        companies.add(instance);
     }
 
     @Override

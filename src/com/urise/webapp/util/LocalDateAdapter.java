@@ -8,11 +8,11 @@ public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
 
     @Override
     public LocalDate unmarshal(String s) throws Exception {
-        return null;
+        return LocalDate.parse(s);
     }
 
     @Override
     public String marshal(LocalDate localDate) throws Exception {
-        return null;
+        return localDate.toString();
     }
 }
