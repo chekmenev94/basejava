@@ -49,18 +49,24 @@ public class DataStreamSerializer implements StreamStrategy {
             String uuid = dis.readUTF();
             String name = dis.readUTF();
             Resume resume = new Resume(uuid, name);
-            int size = dis.readInt();
-            for (int i = 0; i < size; i++) {
-                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            }
-            int sizeSection = dis.readInt();
-            for (int i = 0; i < sizeSection; i++) {
+            readFieldResume(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
+            readFieldResume(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
-                AbstractSection abstractSection = readSection(dis, sectionType);
-                resume.addSection(sectionType, abstractSection);
-            }
+                resume.addSection(sectionType, readSection(dis, sectionType));
+            });
             return resume;
         }
+    }
+
+    private <T> void readFieldResume(DataInputStream dis, readAdd<T> readAdd) throws IOException {
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            readAdd.read();
+        }
+    }
+
+    private interface readAdd<T> {
+        void read() throws IOException;
     }
 
     private <T> void writeCollect(DataOutputStream dos, Collection<T> collection, WriteSection<T> writeSection) throws IOException {
@@ -114,5 +120,4 @@ public class DataStreamSerializer implements StreamStrategy {
         }
         return list;
     }
-
 }
