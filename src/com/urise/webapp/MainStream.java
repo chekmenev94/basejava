@@ -21,29 +21,27 @@ public class MainStream {
     }
 
     private static int minValue(int[] values) {
-        int result = 0;
-        int numIndex = 1;
 
-        int[] ints = Arrays.stream(values)
+        int result = Arrays.stream(values)
                 .boxed()
                 .distinct()
-                .sorted(Collections.reverseOrder())
-                .mapToInt(Integer::intValue).toArray();
+                .sorted()
+                .reduce((x, y) -> x * 10 + y)
+                .orElseThrow();
 
-        for (int i = 0; i < ints.length; i++) {
-            result = result + ints[i] * numIndex;
-            numIndex = numIndex * 10;
-        }
         return result;
     }
 
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
-        long sum = integers.stream().mapToInt(i -> i).summaryStatistics().getSum();
-        if (sum % 2 == 0) {
-            return integers.stream().filter(x -> x % 2 == 0).distinct().collect(Collectors.toList());
-        } else {
-            return integers.stream().filter(x -> x % 2 != 0).distinct().collect(Collectors.toList());
-        }
+        long sum = integers
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        return integers
+                .stream()
+                .filter(i -> (sum % 2 == 0) == (i % 2 != 0))
+                .toList();
     }
 }
